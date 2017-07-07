@@ -12,8 +12,11 @@ git clone https://github.com/olacodeslayer/mypadi.git
 
 -  Open up Command Prompt(CMD) or Terminal in the project directory and run these commands:
 ```
-composer install (Note: you do not need to run composer install/updates as all vendor packages have be pushed also)
+composer install
+Copy the proengsoft package in /fixes folder and override the installed vendor package
+
 php artisan key:generate
+
 php artisan migrate
 ```
 - Launch web server
