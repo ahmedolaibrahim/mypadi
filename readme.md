@@ -1,6 +1,6 @@
 # mypadi
 
-Simple Laravel Web Application with CRUD (Create, Read, Update, Delete) functions.
+Simple Laravel Web Application with CRUD  functions.
 
 
 # Installation
@@ -13,6 +13,7 @@ git clone https://github.com/olacodeslayer/mypadi.git
 -  Open up Command Prompt(CMD) or Terminal in the project directory and run these commands:
 ```
 composer install
+
 Copy the proengsoft package in /fixes folder and override the installed vendor package
 
 php artisan key:generate
