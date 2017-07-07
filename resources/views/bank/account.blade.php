@@ -28,6 +28,8 @@
 
 								 <div class="content">
 								    {!! Form::open(['route'=>['bank.account.store','user_id' => $user_id],'method'=>'POST','id'=>'accountForm','class'=>'form-horizontal']) !!}
+
+								        {{ csrf_field() }}
 								    <div class="col-md-12">
                                        <div class="input-group">
                                               {!! Form::label('Account Type', null, ['class' => 'control-label']) !!}

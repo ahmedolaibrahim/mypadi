@@ -62,15 +62,15 @@ class BankController extends Controller
           // insert into database
           $result = BankInfo::updateOrCreate( [
 
-                                     'firstname' => $request->firstname, 
-                                     'lastname' => $request->lastname,
-                                     'gender' => $request->sex,
-                                     'address' =>  $request->address,
-                                     'phone_number'   =>  $request->phone,
-                                     'account_number' => $account_number ,
-                                     'account_type' => 'Savings',
-                                     'opening_bal' => 0.00
-                                     ]);
+         'firstname' => $request->firstname, 
+         'lastname' => $request->lastname,
+         'gender' => $request->sex,
+         'address' =>  $request->address,
+         'phone_number'   =>  $request->phone,
+         'account_number' => $account_number ,
+         'account_type' => 'Savings',
+         'opening_bal' => 0.00
+         ]);
          // if new user record was successfully inserted into the DB
 
          if($result){
@@ -196,11 +196,20 @@ class BankController extends Controller
         
        //flush previuosly added session for last user
 
-       $request->session()->flush();
+       $request->session()->forget('user_id');
+       $request->session()->forget('firstname');
+       $request->session()->forget('lastname');
+       $request->session()->forget('address');
+       $request->session()->forget('phone');
+       $request->session()->forget('gender');
+       $request->session()->forget('opening_bal');
+       $request->session()->forget('account_number');
+       $request->session()->forget('account_type');
+       
        
        // 
        $accounts = bankInfo::all();
-     
+       
        return view('bank.all',compact('accounts'));
     }
 
@@ -211,9 +220,10 @@ class BankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $user_id)
     {
-        //
+
+     
     }
 
     /**
@@ -223,9 +233,31 @@ class BankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $user_id)
     {
-        //
+          $id = $user_id;
+          $user =  BankInfo::where('id', $id)->update([
+                 'firstname' => $request->firstname, 
+                 'lastname' => $request->lastname,
+                 'gender' => $request->sex,
+                 'address' =>  $request->address,
+                 'phone_number'   =>  $request->phone,
+                 'account_type' =>  $request->account_type,
+                 'opening_bal' =>  $request->opening_bal
+        ]);
+
+        if($user){
+         
+            return redirect()->to("/accounts");
+
+         }
+
+        else{
+
+            return back();
+        }
+
+          
     }
 
     /**
@@ -234,6 +266,37 @@ class BankController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function updateAction(Request $request, $user_id){
+
+        $action = $request->action;
+       
+        // perform delete action on user id
+        if($action == "delete"){
+         
+           $remove = BankInfo::where('id', $user_id)->delete();
+
+           if($remove){
+            
+               return redirect()->to("/accounts");
+           }
+
+           else{
+
+              return back();
+           }
+
+        }
+        else{
+         
+           $id = $user_id;
+           $user =  BankInfo::where('id', $id)->first();
+
+           return view('bank.accounts.edit',compact('user'));
+
+        }
+
+    }
     public function destroy($id)
     {
         //

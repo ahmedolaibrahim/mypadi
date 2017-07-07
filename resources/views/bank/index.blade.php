@@ -4,7 +4,11 @@
   	<div class="container-fluid">
   		<div class="row" style="margin-right: 400px;">
   			<div class="col-md-offset-3 col-md-9">
-  				
+  				      <div style="margin-top: 10px;">
+				    	  <a href="{{url('/accounts')}}" class="btn btn-success">
+				                <i class="fa fa-list"></i> View All Accounts
+				          </a>
+					   </div>
   					<div id="rootwizard" class="" style="margin-top: 50px; font-family: Roboto;" >
  
 						<ul class="nav nav-tabs nav-tabs-linetriangle nav-tabs-separator nav-stack-sm">
@@ -24,7 +28,7 @@
  
 						<div class="tab-content">
 							<div class="row">
-
+                                   
 								 <div class="content">
 								    {!! Form::open(['route'=>['bank.basics'],'method'=>'POST','id'=>'basicsForm','class'=>'form-horizontal']) !!}
 								    <div class="col-md-12">

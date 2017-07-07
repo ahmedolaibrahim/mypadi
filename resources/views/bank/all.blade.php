@@ -34,7 +34,27 @@
 			                <td>{{ucwords($account->account_number)}}</td>
 			                <td>{{ucwords($account->opening_bal)}}</td>
 			                <td>{{ucwords($account->gender)}}</td>
-			                <td></td>
+			                <td>
+			                    {!! Form::open(['route'=>['bank.accounts.action','user_id' => $account->id],'method'=>'GET','id'=>'actionForm','class'=>'form-horizontal']) !!}
+
+                                   <div class="row">
+                                      <div class="col-md-6">
+                                       <div class="input-group">
+                                          
+											  {!! Form::select('action', ['edit' => 'Edit', 'delete' => 'Delete'], 'edit');
+											  !!}
+										</div>
+									   </div>
+									    <div class="col-md-3">										 
+									    {!! Form::submit('Go',['class'=> 'btn btn-next btn-fill btn-success','style'=>'min-width:60px; height:40px;']) !!} 
+									    </div>
+									</div>
+									
+								
+			                    {{ method_field('get') }}
+                               {!! Form::close() !!}
+
+			                </td>
 
 			            </tr>
 			             @endforeach
